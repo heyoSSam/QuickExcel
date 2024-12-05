@@ -1,21 +1,70 @@
-<script lang="ts" setup>
-import HelloWorld from './components/HelloWorld.vue'</script>
-
 <template>
-  <img id="logo" alt="Wails logo" src="./assets/images/logo-universal.png"/>
-  <HelloWorld/>
+  <div class="app">
+    <h1>Программа установки</h1>
+
+    <!-- Компонент выбора пути -->
+    <PathSelector
+      :installPath="installPath"
+      @updatePath="updatePath"
+    />
+
+    <!-- Прогресс-бар -->
+    <ProgressBar :progress="progress" />
+
+    <!-- Кнопка запуска установки -->
+    <InstallButton
+      :isInstalling="isInstalling"
+      @startInstallation="startInstallation"
+    />
+  </div>
 </template>
 
-<style>
-#logo {
-  display: block;
-  width: 50%;
-  height: 50%;
-  margin: auto;
-  padding: 10% 0 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-origin: content-box;
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+// Импорт компонентов
+import PathSelector from './components/PathSelector.vue'
+import ProgressBar from './components/ProgressBar.vue'
+import InstallButton from './components/InstallButton.vue'
+
+const installPath = ref<string>(''); // Путь установки
+const progress = ref<number>(0); // Прогресс
+const isInstalling = ref<boolean>(false); // Флаг установки
+
+// Обновление пути установки
+function updatePath(newPath: string) {
+  installPath.value = newPath;
+}
+
+// Начало установки
+function startInstallation() {
+  if (!installPath.value) {
+    alert('Выберите путь для установки!');
+    return;
+  }
+
+  isInstalling.value = true;
+  progress.value = 0;
+
+  // Эмуляция процесса установки
+  const interval = setInterval(() => {
+    if (progress.value >= 100) {
+      clearInterval(interval);
+      isInstalling.value = false;
+      alert('Установка завершена!');
+      // window.backend.Main.OpenPath(installPath.value); // Открыть проводник
+    } else {
+      progress.value += 10;
+    }
+  }, 500);
+}
+</script>
+
+<style scoped>
+.app {
+  font-family: Arial, sans-serif;
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: center;
 }
 </style>

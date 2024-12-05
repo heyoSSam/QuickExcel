@@ -1,0 +1,48 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Output of build process
+build/
+dist/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Dependency directories
+node_modules/
+vendor/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.code-workspace
+
+# Cache and temp files
+*.cache
+*.lock
+*.bak
+*.swp
+*.swo
+
+# Go-related files
+*.out
+*.test
+*.prof
+
+# Wails-related files
+frontend/dist/
+frontend/node_modules/
+frontend/public/dist/
+
+# Environment files
+.env
+.env.local
